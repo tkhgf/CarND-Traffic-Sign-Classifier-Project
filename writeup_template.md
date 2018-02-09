@@ -45,11 +45,11 @@ You're reading it! and here is a link to my [project code](https://github.com/ud
 I used the pandas library to calculate summary statistics of the traffic
 signs data set:
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+* The size of training set is ? 34799
+* The size of the validation set is ?4410
+* The size of test set is ?12630
+* The shape of a traffic sign image is ? Go straight or left
+* The number of unique classes/labels in the data set is ? 43
 
 ####2. Include an exploratory visualization of the dataset.
 
@@ -87,31 +87,35 @@ My final model consisted of the following layers:
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Convolution 5x5     	| 1x1 stride, same padding, outputs 28x28x18 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
+| Max pooling	      	| 2x2 stride,  outputs 14x14x18 				|
+| Convolution 5x5     	| 1x1 stride, same padding, outputs 10x10x18 	|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride,  outputs 5x5x48 				|
+| Convolution 5x5     	| 1x1 stride, same padding, outputs 1x1x1200 	|
+| RELU					|												|
+| concatenate( Flatten(conv3, conv2)    | outputs 1x1x2400     									|
+| Fully connected		|       									| outputs 1x1x 256| 
+| Fully connected		|       									| outputs 1x1x 84
+| Fully connected		|       									| outputs 1x1x 43
  
 
 
 ####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an ....
+To train the model, I used EPOCHS and training in batches, I have trained my model with different number of epochs , batch sizes like (20, 128),(60,128), (100,64),(10,512) - this one took very long time to run first epoch itself, so I killed it, (20,64) etc.,
 
 ####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+* training set accuracy of ? 0.94
+* validation set accuracy of ? 1.00
+* test set accuracy of ? 0.85
 
 If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
+* What was the first architecture that was tried and why was it chosen? Modified Lenet architecture
+* What were some problems with the initial architecture? 
 * How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
 * Which parameters were tuned? How were they adjusted and why?
 * What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
@@ -139,14 +143,15 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Stop Sign      		| Truck   									| It didn't predict
+| 30 kmph     			| Circle sign with dot  										| Predicted correctly in 3rd guess
+| 60 kmph					| 60 kmph											|
+| cycle cross	      		| Cycle cross			 				|
+| Pedastrian			| Circle sign with dot     							|
+| Child cross | Child Cross |
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 3 of the 6 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
@@ -154,13 +159,14 @@ The code for making predictions on my final model is located in the 11th cell of
 
 For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
 
-| Probability         	|     Prediction	        					| 
+| Image			        |     Prediction	 |       					| Probability
 |:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+| Stop Sign      		| Truck   									| It didn't predict | 1.0
+| 30 kmph     			| Circle sign with dot  										| Predicted correctly in 3rd guess |1.0
+| 60 kmph					| 60 kmph											||1.0
+| cycle cross	      		| Cycle cross			 				||1.0
+| Pedastrian			| Circle sign with dot     							||1.0
+| Child cross | Child Cross ||1.0
 
 
 For the second image ... 
