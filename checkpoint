@@ -1,2 +1,3 @@
-model_checkpoint_path: "train-model.chkpt"
-all_model_checkpoint_paths: "train-model.chkpt"
+model_checkpoint_path: "train-model-final1.chkpt"
+all_model_checkpoint_paths: "train-model-final.chkpt"
+all_model_checkpoint_paths: "train-model-final1.chkpt"
